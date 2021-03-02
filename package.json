@@ -1,0 +1,23 @@
+{
+  "name": "indicision-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,reactbabel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshitkumar450/react--indicision-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akshitkumar450/react--indicision-app/issues"
+  },
+  "homepage": "https://github.com/akshitkumar450/react--indicision-app#readme",
+  "dependencies": {
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-react": "^6.24.1"
+  }
+}
