@@ -5,50 +5,48 @@
 const data = {
     title: 'indicision app',
     subtitle: 'put your life',
-    options: ['one', 'two']
+    options: []
 }
 
-const template = (
-    <div>
-        <h1>{data.title}</h1>
-        {(data.subtitle && data.subtitle.length > 0) && <p>{data.subtitle}</p>}
-        {(data.options && data.options.length > 0) ? <p>here are your options </p> : <p> no options</p>}
-    </div>
-);
-const approot = document.getElementById('app')
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    const option = e.target.elements.option.value;
 
-
-let count = 0;
-// after updating the count we rerender it again (only the changed part gets rendered not the whole template)
-
-const addOne = () => {
-    count = count + 1;
-    renderCounterApp()
+    if (option) {
+        data.options.push(option)
+        e.target.elements.option.value = ""
+    }
+    formRender()
 }
 
-const minusOne = () => {
-    count = count - 1;
-    renderCounterApp()
+const removeAll = () => {
+    data.options = []
+    formRender()
 }
 
-const reset = () => {
-    count = 0
-    renderCounterApp()
-}
-
-
-//  it is re-rendering (only the changed part) to the DOM
-//  we have created a function to re-rendering the content after updating the count,,bcz JSX doest not do auto render 
-const renderCounterApp = () => {
-    const templatetwo = (
+//  to rerender the template after updating the array items
+const formRender = () => {
+    const template = (
         <div>
-            <h1> count : {count}</h1>
-            <button onClick={addOne}> +1 </button>
-            <button onClick={minusOne}> -1 </button>
-            <button onClick={reset}> reset </button>
+            <h1>{data.title}</h1>
+            {(data.subtitle && data.subtitle.length > 0) && <p>{data.subtitle}</p>}
+            {(data.options && data.options.length > 0) ? <p>here are your options </p> : <p> no options</p>}
+            <p>{data.options.length}</p>
+            <button onClick={removeAll}>remove all</button>
+
+            <ol>
+                <li>one</li>
+                <li>two</li>
+            </ol>
+
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option" />
+                <button>Add option</button>
+            </form>
         </div>
     );
-    ReactDOM.render(templatetwo, approot);
+    ReactDOM.render(template, approot)
 }
 
-renderCounterApp()
+const approot = document.getElementById('app')
+formRender()

@@ -7,81 +7,86 @@
 var data = {
     title: 'indicision app',
     subtitle: 'put your life',
-    options: ['one', 'two']
+    options: []
 };
 
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        data.title
-    ),
-    data.subtitle && data.subtitle.length > 0 && React.createElement(
-        'p',
-        null,
-        data.subtitle
-    ),
-    data.options && data.options.length > 0 ? React.createElement(
-        'p',
-        null,
-        'here are your options '
-    ) : React.createElement(
-        'p',
-        null,
-        ' no options'
-    )
-);
-var approot = document.getElementById('app');
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
+    var option = e.target.elements.option.value;
 
-var count = 0;
-// after updating the count we rerender it again (only the changed part gets rendered not the whole template)
-
-var addOne = function addOne() {
-    count = count + 1;
-    renderCounterApp();
+    if (option) {
+        data.options.push(option);
+        e.target.elements.option.value = "";
+    }
+    formRender();
 };
 
-var minusOne = function minusOne() {
-    count = count - 1;
-    renderCounterApp();
+var removeAll = function removeAll() {
+    data.options = [];
+    formRender();
 };
 
-var reset = function reset() {
-    count = 0;
-    renderCounterApp();
-};
-
-//  it is re-rendering (only the changed part) to the DOM
-//  we have created a function to re-rendering the content after updating the count,,bcz JSX doest not do auto render 
-var renderCounterApp = function renderCounterApp() {
-    var templatetwo = React.createElement(
+//  to rerender the template after updating the array items
+var formRender = function formRender() {
+    var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            ' count : ',
-            count
+            data.title
+        ),
+        data.subtitle && data.subtitle.length > 0 && React.createElement(
+            'p',
+            null,
+            data.subtitle
+        ),
+        data.options && data.options.length > 0 ? React.createElement(
+            'p',
+            null,
+            'here are your options '
+        ) : React.createElement(
+            'p',
+            null,
+            ' no options'
+        ),
+        React.createElement(
+            'p',
+            null,
+            data.options.length
         ),
         React.createElement(
             'button',
-            { onClick: addOne },
-            ' +1 '
+            { onClick: removeAll },
+            'remove all'
         ),
         React.createElement(
-            'button',
-            { onClick: minusOne },
-            ' -1 '
+            'ol',
+            null,
+            React.createElement(
+                'li',
+                null,
+                'one'
+            ),
+            React.createElement(
+                'li',
+                null,
+                'two'
+            )
         ),
         React.createElement(
-            'button',
-            { onClick: reset },
-            ' reset '
+            'form',
+            { onSubmit: onFormSubmit },
+            React.createElement('input', { type: 'text', name: 'option' }),
+            React.createElement(
+                'button',
+                null,
+                'Add option'
+            )
         )
     );
-    ReactDOM.render(templatetwo, approot);
+    ReactDOM.render(template, approot);
 };
 
-renderCounterApp();
+var approot = document.getElementById('app');
+formRender();
