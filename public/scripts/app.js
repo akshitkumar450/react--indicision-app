@@ -33,54 +33,55 @@ var template = React.createElement(
         ' no options'
     )
 );
+var approot = document.getElementById('app');
 
-var user = {
-    name: "jewel",
-    age: 30,
-    location: "new york"
+var count = 0;
+// after updating the count we rerender it again (only the changed part gets rendered not the whole template)
+
+var addOne = function addOne() {
+    count = count + 1;
+    renderCounterApp();
 };
 
-function getLocation(loc) {
-    if (loc) {
-        return React.createElement(
-            'p',
+var minusOne = function minusOne() {
+    count = count - 1;
+    renderCounterApp();
+};
+
+var reset = function reset() {
+    count = 0;
+    renderCounterApp();
+};
+
+//  it is re-rendering (only the changed part) to the DOM
+//  we have created a function to re-rendering the content after updating the count,,bcz JSX doest not do auto render 
+var renderCounterApp = function renderCounterApp() {
+    var templatetwo = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
             null,
-            'location : ',
-            loc
-        );
-    }
-}
-
-function isAdult(age) {
-    if (age > 18) return React.createElement(
-        'p',
-        null,
-        'age: ',
-        age
+            ' count : ',
+            count
+        ),
+        React.createElement(
+            'button',
+            { onClick: addOne },
+            ' +1 '
+        ),
+        React.createElement(
+            'button',
+            { onClick: minusOne },
+            ' -1 '
+        ),
+        React.createElement(
+            'button',
+            { onClick: reset },
+            ' reset '
+        )
     );
-    return React.createElement(
-        'p',
-        null,
-        'age is below 18'
-    );
-}
+    ReactDOM.render(templatetwo, approot);
+};
 
-var templatetwo = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        user.name ? user.name : 'anonymous'
-    ),
-    user.age && user.age >= 18 && React.createElement(
-        'p',
-        null,
-        'age: ',
-        user.age
-    ),
-    getLocation(user.location)
-);
-
-var approot = document.getElementById('app');
-ReactDOM.render(template, approot);
+renderCounterApp();

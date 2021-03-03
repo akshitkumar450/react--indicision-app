@@ -2,44 +2,53 @@
 
 // JSX
 
-var data = {
+const data = {
     title: 'indicision app',
     subtitle: 'put your life',
     options: ['one', 'two']
 }
 
-var template = (
+const template = (
     <div>
         <h1>{data.title}</h1>
         {(data.subtitle && data.subtitle.length > 0) && <p>{data.subtitle}</p>}
         {(data.options && data.options.length > 0) ? <p>here are your options </p> : <p> no options</p>}
     </div>
 );
+const approot = document.getElementById('app')
 
-var user = {
-    name: "jewel",
-    age: 30,
-    location: "new york"
+
+let count = 0;
+// after updating the count we rerender it again (only the changed part gets rendered not the whole template)
+
+const addOne = () => {
+    count = count + 1;
+    renderCounterApp()
 }
 
-function getLocation(loc) {
-    if (loc) {
-        return <p>location : {loc}</p>;
-    }
+const minusOne = () => {
+    count = count - 1;
+    renderCounterApp()
 }
 
-function isAdult(age) {
-    if (age > 18) return <p>age: {age}</p>
-    return <p>age is below 18</p>
+const reset = () => {
+    count = 0
+    renderCounterApp()
 }
 
-var templatetwo = (
-    <div>
-        <h1>{user.name ? user.name : 'anonymous'}</h1>
-        { (user.age && user.age >= 18) && <p>age: {user.age}</p>}
-        {getLocation(user.location)}
-    </div>
-)
 
-var approot = document.getElementById('app')
-ReactDOM.render(template, approot);
+//  it is re-rendering (only the changed part) to the DOM
+//  we have created a function to re-rendering the content after updating the count,,bcz JSX doest not do auto render 
+const renderCounterApp = () => {
+    const templatetwo = (
+        <div>
+            <h1> count : {count}</h1>
+            <button onClick={addOne}> +1 </button>
+            <button onClick={minusOne}> -1 </button>
+            <button onClick={reset}> reset </button>
+        </div>
+    );
+    ReactDOM.render(templatetwo, approot);
+}
+
+renderCounterApp()
