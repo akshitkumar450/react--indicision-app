@@ -26,6 +26,8 @@ var removeAll = function removeAll() {
     formRender();
 };
 
+// const number = [1, 2, 3, 5];
+
 //  to rerender the template after updating the array items
 var formRender = function formRender() {
     var template = React.createElement(
@@ -63,16 +65,14 @@ var formRender = function formRender() {
         React.createElement(
             'ol',
             null,
-            React.createElement(
-                'li',
-                null,
-                'one'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'two'
-            )
+            data.options.map(function (item, index) {
+                return React.createElement(
+                    'li',
+                    { key: index },
+                    'item: ',
+                    item
+                );
+            })
         ),
         React.createElement(
             'form',
