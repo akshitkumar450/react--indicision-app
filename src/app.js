@@ -24,6 +24,12 @@ const removeAll = () => {
     formRender()
 }
 
+const makeDecision = () => {
+    const randomText = Math.floor(Math.random() * data.options.length);
+    const option = data.options[randomText]
+    alert(option)
+}
+
 // const number = [1, 2, 3, 5];
 
 //  to rerender the template after updating the array items
@@ -34,6 +40,8 @@ const formRender = () => {
             {(data.subtitle && data.subtitle.length > 0) && <p>{data.subtitle}</p>}
             {(data.options && data.options.length > 0) ? <p>here are your options </p> : <p> no options</p>}
             <p>{data.options.length}</p>
+
+            <button disabled={data.options.length === 0} onClick={makeDecision}>what should i do ?</button>
             <button onClick={removeAll}>remove all</button>
 
             {

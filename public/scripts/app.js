@@ -26,6 +26,12 @@ var removeAll = function removeAll() {
     formRender();
 };
 
+var makeDecision = function makeDecision() {
+    var randomText = Math.floor(Math.random() * data.options.length);
+    var option = data.options[randomText];
+    alert(option);
+};
+
 // const number = [1, 2, 3, 5];
 
 //  to rerender the template after updating the array items
@@ -56,6 +62,11 @@ var formRender = function formRender() {
             'p',
             null,
             data.options.length
+        ),
+        React.createElement(
+            'button',
+            { disabled: data.options.length === 0, onClick: makeDecision },
+            'what should i do ?'
         ),
         React.createElement(
             'button',
