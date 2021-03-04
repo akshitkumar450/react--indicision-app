@@ -20,12 +20,16 @@ var IndecisionApp = function (_React$Component) {
     _createClass(IndecisionApp, [{
         key: 'render',
         value: function render() {
+            var title = 'Indecision';
+            var subtitle = '!!put your life in hand of a computer';
+            var options = ['one', 'two', 'four'];
+
             return React.createElement(
                 'div',
                 null,
-                React.createElement(Header, null),
+                React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, null),
-                React.createElement(Options, null),
+                React.createElement(Options, { options: options }),
                 React.createElement(AddOption, null)
             );
         }
@@ -52,12 +56,13 @@ var Header = function (_React$Component2) {
                 React.createElement(
                     'h1',
                     null,
-                    'Indecision '
+                    this.props.title,
+                    ' '
                 ),
                 React.createElement(
                     'h2',
                     null,
-                    'put your life in hand of a computer'
+                    this.props.subtitle
                 )
             );
         }
@@ -111,9 +116,12 @@ var Options = function (_React$Component4) {
                 React.createElement(
                     'p',
                     null,
-                    'here are your options'
+                    this.props.options.length
                 ),
-                React.createElement(Option, null)
+                this.props.options.map(function (item) {
+                    // return <p key={item}>{item}</p>
+                    return React.createElement(Option, { key: item, optionText: item });
+                })
             );
         }
     }]);
@@ -139,7 +147,8 @@ var Option = function (_React$Component5) {
                 React.createElement(
                     'p',
                     null,
-                    ' here is option inside options'
+                    'option are::: ',
+                    this.props.optionText
                 )
             );
         }
