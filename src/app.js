@@ -42,9 +42,16 @@ class Action extends React.Component {
 }
 
 class Options extends React.Component {
-    removeAll() {
-        alert('removed')
+    // this is not defined here..
+    //  we are binding this 
+    constructor(props) {
+        super(props);
+        this.removeAll = this.removeAll.bind(this)
     }
+    removeAll() {
+        console.log(this.props.options);
+    }
+
     render() {
         return (
             <div>
