@@ -28,13 +28,22 @@ var IndecisionApp = function (_React$Component) {
     // props can communicate in one way..i.e parent can communicate with children only
     // to do opposite(child to communicate with parent) we have passed function as a prop to child component
 
+    // handleDeleteOption() {
+    //     this.setState(() => {
+    //         return {
+    //             options: []
+    //         }
+    //     })
+    // }
+
+    // shorthand for returning from a arrow function
+
+
     _createClass(IndecisionApp, [{
         key: 'handleDeleteOption',
         value: function handleDeleteOption() {
             this.setState(function () {
-                return {
-                    options: []
-                };
+                return { options: [] };
             });
         }
     }, {
@@ -51,6 +60,12 @@ var IndecisionApp = function (_React$Component) {
             } else if (this.state.options.indexOf(option) > -1) {
                 return 'option already exists';
             }
+            // this.setState((prevState) => {
+            //     return {
+            //         options: prevState.options.concat([option])
+            //     }
+            // })
+
             this.setState(function (prevState) {
                 return {
                     options: prevState.options.concat([option])
@@ -180,10 +195,14 @@ var AddOption = function (_React$Component2) {
             e.preventDefault();
             var option = e.target.elements.option_value.value.trim();
             var error = this.props.handleAddOption(option);
+            // this.setState(() => {
+            //     return {
+            //         error: error
+            //     }
+            // })
+
             this.setState(function () {
-                return {
-                    error: error
-                };
+                return { error: error };
             });
         }
     }, {

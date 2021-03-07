@@ -12,12 +12,17 @@ class IndecisionApp extends React.Component {
     // props can communicate in one way..i.e parent can communicate with children only
     // to do opposite(child to communicate with parent) we have passed function as a prop to child component
 
+    // handleDeleteOption() {
+    //     this.setState(() => {
+    //         return {
+    //             options: []
+    //         }
+    //     })
+    // }
+
+    // shorthand for returning from a arrow function
     handleDeleteOption() {
-        this.setState(() => {
-            return {
-                options: []
-            }
-        })
+        this.setState(() => ({ options: [] }))
     }
 
     handlePick() {
@@ -32,11 +37,15 @@ class IndecisionApp extends React.Component {
         else if (this.state.options.indexOf(option) > -1) {
             return 'option already exists'
         }
-        this.setState((prevState) => {
-            return {
-                options: prevState.options.concat([option])
-            }
-        })
+        // this.setState((prevState) => {
+        //     return {
+        //         options: prevState.options.concat([option])
+        //     }
+        // })
+
+        this.setState((prevState) => ({
+            options: prevState.options.concat([option])
+        }));
     }
     render() {
         const subtitle = '!!put your life in hand of a computer'
@@ -128,11 +137,13 @@ class AddOption extends React.Component {
         e.preventDefault();
         let option = e.target.elements.option_value.value.trim();
         const error = this.props.handleAddOption(option)
-        this.setState(() => {
-            return {
-                error: error
-            }
-        })
+        // this.setState(() => {
+        //     return {
+        //         error: error
+        //     }
+        // })
+
+        this.setState(() => ({ error: error }))
     }
     render() {
         return (
