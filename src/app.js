@@ -10,6 +10,23 @@ class IndecisionApp extends React.Component {
         }
     }
 
+    //Life Cycle Methods(only access in Class based component)
+
+    // this will run when a component has rendered to DOM
+    componentDidMount() {
+        console.log('Fetching Data');
+    }
+
+    // this will run  when props or state changes
+    componentDidUpdate(prevProps, prevState) {
+        console.log('Saving Data');
+    }
+
+    // this will run when the component is removed from the DOM
+    componentWillUnmount() {
+        console.log('unmounted');
+    }
+
     // props can communicate in one way..i.e parent can communicate with children only
     // to do opposite(child to communicate with parent) we have passed function as a prop to child component
 

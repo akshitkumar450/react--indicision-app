@@ -26,21 +26,47 @@ var IndecisionApp = function (_React$Component) {
         return _this;
     }
 
-    // props can communicate in one way..i.e parent can communicate with children only
-    // to do opposite(child to communicate with parent) we have passed function as a prop to child component
+    //Life Cycle Methods(only access in Class based component)
 
-    // handleDeleteOption() {
-    //     this.setState(() => {
-    //         return {
-    //             options: []
-    //         }
-    //     })
-    // }
-
-    // shorthand for returning from a arrow function
+    // this will run when a component has rendered to DOM
 
 
     _createClass(IndecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('Fetching Data');
+        }
+
+        // this will run  when props or state changes
+
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            console.log('Saving Data');
+        }
+
+        // this will run when the component is removed from the DOM
+
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            console.log('unmounted');
+        }
+
+        // props can communicate in one way..i.e parent can communicate with children only
+        // to do opposite(child to communicate with parent) we have passed function as a prop to child component
+
+        // handleDeleteOption() {
+        //     this.setState(() => {
+        //         return {
+        //             options: []
+        //         }
+        //     })
+        // }
+
+        // shorthand for returning from a arrow function
+
+    }, {
         key: 'handleDeleteOption',
         value: function handleDeleteOption() {
             this.setState(function () {
