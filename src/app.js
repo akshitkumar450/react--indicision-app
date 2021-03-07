@@ -4,6 +4,7 @@ class IndecisionApp extends React.Component {
         this.handleDeleteOption = this.handleDeleteOption.bind(this)
         this.handlePick = this.handlePick.bind(this)
         this.handleAddOption = this.handleAddOption.bind(this)
+        this.handleDeleteOne = this.handleDeleteOne.bind(this)
         this.state = {
             options: props.options
         }
@@ -30,6 +31,13 @@ class IndecisionApp extends React.Component {
         alert(this.state.options[randomOption])
     }
 
+    // this fn is passed to Options Component as a props and it is further passed to Option Component as a prop only
+    handleDeleteOne(option) {
+        this.setState((prevState) => ({
+            options: prevState.options.filter((item) => option !== item)
+        }))
+    }
+
     handleAddOption(option) {
         if (!option) {
             return 'enter valid value to add'
@@ -37,11 +45,6 @@ class IndecisionApp extends React.Component {
         else if (this.state.options.indexOf(option) > -1) {
             return 'option already exists'
         }
-        // this.setState((prevState) => {
-        //     return {
-        //         options: prevState.options.concat([option])
-        //     }
-        // })
 
         this.setState((prevState) => ({
             options: prevState.options.concat([option])
@@ -60,6 +63,7 @@ class IndecisionApp extends React.Component {
                 <Options
                     handleDeleteOption={this.handleDeleteOption}
                     options={this.state.options}
+                    handleDeleteOne={this.handleDeleteOne}
                 />
                 <AddOption
                     handleAddOption={this.handleAddOption}
@@ -110,7 +114,11 @@ const Options = (props) => {
 
             {props.options.map((item) => {
                 // return <p key={item}>{item}</p>
-                return <Option key={item} optionText={item} />
+                return <Option
+                    handleDeleteOne={props.handleDeleteOne}
+                    key={item}
+                    optionText={item}
+                />
             })}
 
         </div>
@@ -121,6 +129,12 @@ const Option = (props) => {
     return (
         <div>
             <p>option are::: {props.optionText}</p>
+            <button
+                onClick={(e) => {
+                    props.handleDeleteOne(props.optionText)
+                }}>
+                remove
+            </button>
         </div>
     )
 }
@@ -137,12 +151,6 @@ class AddOption extends React.Component {
         e.preventDefault();
         let option = e.target.elements.option_value.value.trim();
         const error = this.props.handleAddOption(option)
-        // this.setState(() => {
-        //     return {
-        //         error: error
-        //     }
-        // })
-
         this.setState(() => ({ error: error }))
     }
     render() {
