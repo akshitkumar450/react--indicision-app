@@ -44,7 +44,7 @@ class Counter extends React.Component {
 
         // setting up the default state object
         this.state = {
-            count: 0
+            count: props.count
         }
     }
     // setState is used to change the state and render new values
@@ -88,4 +88,9 @@ class Counter extends React.Component {
     }
 }
 
-ReactDOM.render(<Counter />, document.getElementById('app'))
+// defaultProps
+Counter.defaultProps = {
+    count: 0
+}
+
+ReactDOM.render(<Counter count={-10} />, document.getElementById('app'))
