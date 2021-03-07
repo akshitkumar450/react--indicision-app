@@ -21,7 +21,7 @@ var IndecisionApp = function (_React$Component) {
         _this.handleAddOption = _this.handleAddOption.bind(_this);
         _this.handleDeleteOne = _this.handleDeleteOne.bind(_this);
         _this.state = {
-            options: props.options
+            options: []
         };
         return _this;
     }
@@ -34,7 +34,20 @@ var IndecisionApp = function (_React$Component) {
     _createClass(IndecisionApp, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            console.log('Fetching Data');
+            // fetching data
+            try {
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+
+                // to do only when there is a option(eg :null)
+                if (options) {
+                    this.setState(function () {
+                        return { options: options };
+                    });
+                }
+            } catch (e) {
+                // do nothing
+            }
         }
 
         // this will run  when props or state changes
@@ -42,7 +55,12 @@ var IndecisionApp = function (_React$Component) {
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
-            console.log('Saving Data');
+            // saving data
+            // only do when a new element is added or removed
+            if (prevState.options.length !== this.state.options.length) {
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem('options', json);
+            }
         }
 
         // this will run when the component is removed from the DOM
@@ -136,10 +154,6 @@ var IndecisionApp = function (_React$Component) {
     return IndecisionApp;
 }(React.Component);
 
-IndecisionApp.defaultProps = {
-    options: []
-};
-
 var Header = function Header(props) {
     return React.createElement(
         'div',
@@ -181,10 +195,10 @@ var Options = function Options(props) {
     return React.createElement(
         'div',
         null,
-        React.createElement(
+        props.options.length === 0 && React.createElement(
             'p',
             null,
-            props.options.length
+            'please add an option to get started'
         ),
         React.createElement(
             'button',
@@ -247,6 +261,10 @@ var AddOption = function (_React$Component2) {
             this.setState(function () {
                 return { error: error };
             });
+
+            if (!error) {
+                e.target.elements.option_value.value = '';
+            }
         }
     }, {
         key: 'render',

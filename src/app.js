@@ -6,7 +6,7 @@ class IndecisionApp extends React.Component {
         this.handleAddOption = this.handleAddOption.bind(this)
         this.handleDeleteOne = this.handleDeleteOne.bind(this)
         this.state = {
-            options: props.options
+            options: []
         }
     }
 
@@ -14,12 +14,29 @@ class IndecisionApp extends React.Component {
 
     // this will run when a component has rendered to DOM
     componentDidMount() {
-        console.log('Fetching Data');
+        // fetching data
+        try {
+            const json = localStorage.getItem('options')
+            const options = JSON.parse(json)
+
+            // to do only when there is a option(eg :null)
+            if (options) {
+                this.setState(() => ({ options: options }))
+            }
+        }
+        catch (e) {
+            // do nothing
+        }
     }
 
     // this will run  when props or state changes
     componentDidUpdate(prevProps, prevState) {
-        console.log('Saving Data');
+        // saving data
+        // only do when a new element is added or removed
+        if (prevState.options.length !== this.state.options.length) {
+            const json = JSON.stringify(this.state.options)
+            localStorage.setItem('options', json)
+        }
     }
 
     // this will run when the component is removed from the DOM
@@ -90,10 +107,6 @@ class IndecisionApp extends React.Component {
     }
 }
 
-IndecisionApp.defaultProps = {
-    options: []
-}
-
 const Header = (props) => {
     return (
         <div>
@@ -125,7 +138,7 @@ const Action = (props) => {
 const Options = (props) => {
     return (
         <div>
-            <p>{props.options.length}</p>
+            {props.options.length === 0 && <p>please add an option to get started</p>}
 
             <button onClick={props.handleDeleteOption}>remove All</button>
 
@@ -169,6 +182,10 @@ class AddOption extends React.Component {
         let option = e.target.elements.option_value.value.trim();
         const error = this.props.handleAddOption(option)
         this.setState(() => ({ error: error }))
+
+        if (!error) {
+            e.target.elements.option_value.value = ''
+        }
     }
     render() {
         return (
