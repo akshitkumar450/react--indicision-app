@@ -22,6 +22,14 @@ module.exports = {
                 }
             }
         ]
+    },
+    // sorce map --help for debugging-- it will reference to errors in the component file rather than bundle.js file
+    devtool: 'cheap-module-eval-source-map',
+
+    // a webpack dev server  such as live server
+    // it does not make bundle.js file physically ,,but it loads from memory ,,which make server fast
+    devServer: {
+        contentBase: path.join(__dirname, 'public')
     }
 }
 
