@@ -3,7 +3,7 @@ import React from 'react';
 const Action = (props) => {
     return (
         <div>
-            <button
+            <button className="whatbtn"
                 disabled={!props.hasOption}
                 onClick={props.handlePick}>
                 what should i do?
