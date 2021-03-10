@@ -74,7 +74,7 @@ button:disabled {
   background-color: rgb(202, 5, 202);
   border: none;
   border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 1rem 2rem;
   color: white;
 }
 
@@ -82,5 +82,59 @@ button:disabled {
   background: none;
   border: none;
   padding: 0;
+  color: white;
+}
+
+.widget-header {
+  background-color: #3c4251;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 1.6rem;
+}
+
+.widget-header h3 {
+  margin: 0;
+}
+
+.widget {
+  background-color: #464b5e;
+}
+
+.widget-message {
+  color: wheat;
+  padding: 3rem 5rem;
+  border-bottom: 1px solid black;
+  text-align: center;
+  text-transform: capitalize;
+  font-style: italic;
+}
+
+.widget-form {
+  padding: 1rem 2rem;
+  display: flex;
+}
+
+.widget-form input {
+  flex: 1;
+  background-color: var(--backgrund-blue-dark);
+  border: none;
+  padding: 1rem 2rem;
+  margin-right: 0.5rem;
+  color: white;
+  display: inline-block;
+}
+
+.widget-form input:active {
+  border: none;
+  outline: none;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 1rem;
+  border-bottom: 1px solid black;
   color: white;
 }
