@@ -178,3 +178,9 @@ button:disabled {
   margin: 0 0 2rem 0;
   word-break: break-all;
 }
+
+@media (max-width: 45rem) {
+  .widget-form {
+    flex-direction: column;
+  }
+}
